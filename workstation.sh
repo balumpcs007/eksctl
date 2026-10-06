@@ -12,6 +12,17 @@ usermod -aG docker ec2-user
 curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.34.2/2025-11-13/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mkdir -p $HOME/bin && cp ./kubectl  /usr/local/bin && export PATH=$HOME/bin:$PATH
+echo $PATH
+ls -l /usr/local/bin/kubectl
+/usr/local/bin/kubectl version --client
+# Option 1: install to a directory that is already in PATH
+install -m 0755 kubectl /usr/bin/kubectl
+
+# Option 2: add /usr/local/bin to PATH permanently
+echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+hash -r
+
 
 ARCH=amd64
 PLATFORM=$(uname -s)_$ARCH
